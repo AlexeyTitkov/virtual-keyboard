@@ -40,18 +40,6 @@ function renderKeyboard(keyboardKeys) {
   });
 }
 
-renderKeyboard(keyboardKeysEn);
-
-// Обработчик события изменения выбранной опции
-function handleLayoutChange(event) {
-  const layout = event.target.value;
-  if (layout === 'en') {
-    renderKeyboard(keyboardKeysEn);
-  } else if (layout === 'ru') {
-    renderKeyboard(keyboardKeysRu);
-  }
-}
-
 // Создаем выпадающий список для выбора раскладки клавиатуры
 const select = document.createElement('select');
 select.classList.add('toggle-lang');
@@ -68,3 +56,30 @@ const ruOption = document.createElement('option');
 ruOption.textContent = 'Ru';
 ruOption.value = 'ru';
 select.appendChild(ruOption);
+
+// Проверяем, сохранена ли раскладка в localStorage
+const savedLayout = localStorage.getItem('keyboardLayout');
+
+// Если раскладка сохранена, то выбираем ее при загрузке страницы
+if (savedLayout === 'en') {
+  select.value = 'en';
+  renderKeyboard(keyboardKeysEn);
+} else if (savedLayout === 'ru') {
+  select.value = 'ru';
+  renderKeyboard(keyboardKeysRu);
+} else {
+// Если раскладка не сохранена, то отображаем английскую раскладку при загрузке страницы
+  renderKeyboard(keyboardKeysEn);
+}
+
+// Обработчик события изменения выбранной опции
+function handleLayoutChange(event) {
+  const layout = event.target.value;
+  if (layout === 'en') {
+    localStorage.setItem('keyboardLayout', 'en'); // сохраняем выбранную раскладку в localStorage
+    renderKeyboard(keyboardKeysEn);
+  } else if (layout === 'ru') {
+    localStorage.setItem('keyboardLayout', 'ru'); // сохраняем выбранную раскладку в localStorage
+    renderKeyboard(keyboardKeysRu);
+  }
+}
