@@ -9,11 +9,19 @@ export class Button {
   generateButton() {
     let template = '';
     const button = document.createElement('button');
-    button.className = 'keyboard-key';
+    button.className = 'keyboard-key key';
     button.classList.add(`${this.code}`)
 
     if (this.shiftKey) {
-      (template += `<span class='shift-key'>${this.shiftKey}</span>`);
+      (template += `<span class='shift-key hidden'>${this.shiftKey}</span>`);
+    }
+
+    if (this.shiftKey) {
+      (template += `<span class='caps-key hidden'>${this.shiftKey}</span>`);
+    }
+
+    if (this.shiftKey) {
+      (template += `<span class='caps-shift-key hidden'>${this.key}</span>`);
     }
 
     if (this.key) {

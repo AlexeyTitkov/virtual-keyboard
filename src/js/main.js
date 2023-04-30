@@ -19,6 +19,12 @@ const keyboardContainer = document.createElement('div');
 keyboardContainer.classList.add('keyboard-container');
 document.body.appendChild(keyboardContainer);
 
+// Создаем элемент "Клавиатура создана в операционной системе Windows"
+const layoutInfoOS = document.createElement('p');
+layoutInfoOS.classList.add('layout-info');
+layoutInfoOS.textContent = 'Клавиатура создана в операционной системе Windows';
+document.body.appendChild(layoutInfoOS);
+
 // Создаем элемент "Смена раскладки клавиатуры: Shift + Alt"
 const layoutInfo = document.createElement('p');
 layoutInfo.classList.add('layout-info');

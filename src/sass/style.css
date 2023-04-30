@@ -80,21 +80,6 @@ body {
   position: relative;
 }
 
-.shift-key {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: 1.2rem;
-  margin: 5px 0 0 8px;
-}
-
-.key {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* первая строка */
 .keyboard-key:first-child {
   color: #fff;
@@ -169,6 +154,10 @@ body {
 .keyboard-key:nth-child(n+2):nth-child(-n+13):active,
 .toggle-lang:active {
   background-color: #5c7bf3;
+}
+
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
