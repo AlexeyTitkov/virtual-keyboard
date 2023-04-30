@@ -1,8 +1,8 @@
 export class Button {
-  constructor({ key, shiftKey, keyCode }) {
+  constructor({ key, shiftKey, code }) {
     this.key = key;
     this.shiftKey = shiftKey;
-    this.keyCode = keyCode;
+    this.code = code;
   }
 
   // Создаем генератор кнопок
@@ -10,7 +10,7 @@ export class Button {
     let template = '';
     const button = document.createElement('button');
     button.className = 'keyboard-key';
-    button.setAttribute('key-сode', this.keyCode);
+    button.classList.add(`${this.code}`)
 
     if (this.shiftKey) {
       (template += `<span class='shift-key'>${this.shiftKey}</span>`);
