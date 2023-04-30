@@ -59,8 +59,8 @@ export const keyboardKeysRu = [
   { key: 'Alt', shiftKey: null, code: 'AltLeft' },
   { key: 'Space', shiftKey: null, code: 'Space' },
   { key: 'Alt', shiftKey: null, code: 'AltRight' },
-  { key: 'Ctrl', shiftKey: null, code: 'ControlRight' },
   { key: '◄', shiftKey: null, code: 'ArrowLeft' },
   { key: '▼', shiftKey: null, code: 'ArrowDown' },
   { key: '►', shiftKey: null, code: 'ArrowRight' },
+  { key: 'Ctrl', shiftKey: null, code: 'ControlRight' },
 ];

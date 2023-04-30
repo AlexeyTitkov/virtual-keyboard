@@ -56,13 +56,14 @@ body {
   outline: none;
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   align-self: center;
+  cursor: pointer;
 }
 
 .keyboard-container {
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(15, 1fr);
-  gap: 2px;
+  gap: 3px;
 }
 
 .keyboard-key {
@@ -70,84 +71,66 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 20px;
-  color: #b2b2b2;
-  background-color: #666;
+  color: #fff;
+  background-color: #999999;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
   height: 50px;
-  position: relative;
+  padding: 1px 6px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: #575757;
+  border-image: initial;
+  &:hover {
+    background-color: #5567b0;
+  }
+  &:active{
+    background-color: #5c7bf3;
+    transform: translateY(1px) translateX(1px) ;
+  }
 }
 
-/* первая строка */
-.keyboard-key:first-child {
-  color: #fff;
-}
-.keyboard-key:nth-child(14) {
+.ShiftLeft,
+.ShiftRight,
+.CapsLock,
+.Enter,
+.Backspace,
+{
   grid-column: span 2;
+}
+
+.Space, {
+  grid-column: span 7;
+}
+
+.Backspace,
+.Tab,
+.Delete,
+.CapsLock,
+.Enter,
+.ShiftLeft,
+.ArrowUp,
+.ShiftRight,
+.ControlLeft,
+.MetaLeft,
+.AltLeft,
+.Space,
+.AltRight,
+.ControlRight,
+.ArrowLeft,
+.ArrowDown,
+.ArrowRight,
+.toggle-lang {
   background-color: #333333;
-}
-.keyboard-key:nth-child(n+2):nth-child(-n+13) {
-  color: #fff;
-  background-color: #999999;
-}
-
-/* вторая строка */
-.keyboard-key:nth-child(n+16):nth-child(-n+28) {
-  color: #fff;
-  background-color: #999999;
-}
-
-/* третья строка */
-.keyboard-key:nth-child(30) {
-  grid-column: span 2;
-}
-.keyboard-key:nth-child(42) {
-  grid-column: span 2;
-}
-.keyboard-key:nth-child(n+31):nth-child(-n+41) {
-  color: #fff;
-  background-color: #999999;
-}
-
-/* четвертая строка */
-.keyboard-key:nth-child(43) {
-  grid-column: span 2;
-}
-.keyboard-key:nth-child(55) {
-  grid-column: span 2;
-}
-.keyboard-key:nth-child(n+44):nth-child(-n+53) {
-  color: #fff;
-  background-color: #999999;
-}
-
-/* пятая строка */
-.keyboard-key:nth-child(59) {
-  grid-column: span 6;
-}
-.keyboard-key:not(:nth-child(52)) {
-  background-color: #333333;
-}
-
-.keyboard-key:hover,
-.keyboard-key:nth-child(n+44):nth-child(-n+53):hover,
-.keyboard-key:nth-child(n+31):nth-child(-n+41):hover,
-.keyboard-key:nth-child(n+16):nth-child(-n+28):hover,
-.keyboard-key:nth-child(n+2):nth-child(-n+13):hover,
-.toggle-lang:hover {
-  background-color: #5567b0;
-}
-
-.keyboard-key:active,
-.keyboard-key:nth-child(n+44):nth-child(-n+53):active,
-.keyboard-key:nth-child(n+31):nth-child(-n+41):active,
-.keyboard-key:nth-child(n+16):nth-child(-n+28):active,
-.keyboard-key:nth-child(n+2):nth-child(-n+13):active,
-.toggle-lang:active {
-  background-color: #5c7bf3;
+  color: #b2b2b2;
 }
 
 .hidden {
   display: none;
+}
+
+.active {
+  background-color: #5c7bf3;
+  transform: translateY(1px) translateX(1px) ;
 }
