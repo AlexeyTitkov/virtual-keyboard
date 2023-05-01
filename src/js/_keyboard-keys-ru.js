@@ -27,7 +27,7 @@ export const keyboardKeysRu = [
   { key: 'х', shiftKey: 'Х', code: 'BracketLeft' },
   { key: 'ъ', shiftKey: 'Ъ', code: 'BracketRight' },
   { key: '\\', shiftKey: '/', code: 'Backslash' },
-  { key: 'Del', shift: null, code: 'Delete' },
+  { key: 'Del', shiftKey: null, code: 'Delete' },
   { key: 'Caps Lock', shiftKey: null, code: 'CapsLock' },
   { key: 'ф', shiftKey: 'Ф', code: 'KeyA' },
   { key: 'ы', shiftKey: 'Ы', code: 'KeyS' },

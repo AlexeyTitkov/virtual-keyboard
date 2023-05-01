@@ -27,7 +27,7 @@ export const keyboardKeysEn = [
   { key: '[', shiftKey: '{', code: 'BracketLeft' },
   { key: ']', shiftKey: '}', code: 'BracketRight' },
   { key: '\\', shiftKey: '|', code: 'Backslash' },
-  { key: 'Del', shift: null, code: 'Delete' },
+  { key: 'Del', shiftKey: null, code: 'Delete' },
   { key: 'Caps Lock', shiftKey: null, code: 'CapsLock' },
   { key: 'a', shiftKey: 'A', code: 'KeyA' },
   { key: 's', shiftKey: 'S', code: 'KeyS' },

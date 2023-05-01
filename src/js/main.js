@@ -2,6 +2,18 @@ import { keyboardKeysEn } from './_keyboard-keys-en.js';
 import { keyboardKeysRu } from './_keyboard-keys-ru.js';
 import { Button } from './_button.js';
 
+// Создаем функцию соединения значений двух раскладок
+const keyboardKeysEnRu = keyboardKeysEn.map((enKey, index) => {
+  const ruKey = keyboardKeysRu[index];
+  return {
+    keyEn: enKey.key,
+    shiftKeyEn: enKey.shiftKey,
+    keyRu: ruKey.key,
+    shiftKeyRu: ruKey.shiftKey,
+    code: enKey.code // коды клавиш должны быть одинаковыми в обоих массивах
+  };
+});
+
 // Создаем заголовок
 const h1 = document.createElement('h1');
 h1.classList.add('title');
@@ -45,6 +57,32 @@ function renderKeyboard(keyboardKeys) {
     keyboardContainer.append(button.generateButton());
   });
 }
+renderKeyboard(keyboardKeysEnRu)
+
+// Создаем функцию смены раскладки, путем установки класса hidden
+function switchLayout(layout) {
+  if (layout === 'en') {
+    // Переключение на английскую раскладку
+    const enElements = document.querySelectorAll('.En');
+    const ruElements = document.querySelectorAll('.Ru');
+    enElements.forEach(element => {
+      element.classList.remove('hidden');
+    });
+    ruElements.forEach(element => {
+      element.classList.add('hidden');
+    });
+  } else if (layout === 'ru') {
+    // Переключение на русскую раскладку
+    const enElements = document.querySelectorAll('.En');
+    const ruElements = document.querySelectorAll('.Ru');
+    enElements.forEach(element => {
+      element.classList.add('hidden');
+    });
+    ruElements.forEach(element => {
+      element.classList.remove('hidden');
+    });
+  }
+}
 
 // Создаем выпадающий список для выбора раскладки клавиатуры
 const select = document.createElement('select');
@@ -69,13 +107,13 @@ const savedLayout = localStorage.getItem('keyboardLayout');
 // Если раскладка сохранена, то выбираем ее при загрузке страницы
 if (savedLayout === 'en') {
   select.value = 'en';
-  renderKeyboard(keyboardKeysEn);
+  switchLayout('en');
 } else if (savedLayout === 'ru') {
   select.value = 'ru';
-  renderKeyboard(keyboardKeysRu);
+  switchLayout('ru');
 } else {
 // Если раскладка не сохранена, то отображаем английскую раскладку при загрузке страницы
-  renderKeyboard(keyboardKeysEn);
+  switchLayout('en');
 }
 
 // Обработчик события изменения выбранной опции
@@ -83,9 +121,9 @@ function handleLayoutChange(event) {
   const layout = event.target.value;
   if (layout === 'en') {
     localStorage.setItem('keyboardLayout', 'en'); // сохраняем выбранную раскладку в localStorage
-    renderKeyboard(keyboardKeysEn);
+    switchLayout('en');
   } else if (layout === 'ru') {
     localStorage.setItem('keyboardLayout', 'ru'); // сохраняем выбранную раскладку в localStorage
-    renderKeyboard(keyboardKeysRu);
+    switchLayout('ru');
   }
 }
