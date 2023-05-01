@@ -13,5 +13,13 @@ module.exports = {
   rules: {
     "linebreak-style":  ["error", "windows"],
     "import/prefer-default-export": "off",
+    "prefer-destructuring": ["error", {"object": true, "array": false}],
+    "no-use-before-define": ["error", {"functions": false, "classes": false}],
+    "import/extensions": [
+      "error",
+      {
+        "js": "ignorePackages"
+      }
+    ],
   },
 };

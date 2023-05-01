@@ -10,7 +10,7 @@ const keyboardKeysEnRu = keyboardKeysEn.map((enKey, index) => {
     shiftKeyEn: enKey.shiftKey,
     keyRu: ruKey.key,
     shiftKeyRu: ruKey.shiftKey,
-    code: enKey.code // коды клавиш должны быть одинаковыми в обоих массивах
+    code: enKey.code, // коды клавиш должны быть одинаковыми в обоих массивах
   };
 });
 
@@ -37,10 +37,10 @@ layoutInfoOS.classList.add('layout-info');
 layoutInfoOS.textContent = 'Клавиатура создана в операционной системе Windows';
 document.body.appendChild(layoutInfoOS);
 
-// Создаем элемент "Смена раскладки клавиатуры: Shift + Alt"
+// Создаем элемент "Смена раскладки клавиатуры: Ctrl + Alt"
 const layoutInfo = document.createElement('p');
 layoutInfo.classList.add('layout-info');
-layoutInfo.textContent = 'Смена раскладки клавиатуры: Shift + Alt';
+layoutInfo.textContent = 'Смена раскладки клавиатуры: Ctrl + Alt';
 document.body.appendChild(layoutInfo);
 
 // Создаем функцию для отрисовки клавиатуры на странице
@@ -57,7 +57,7 @@ function renderKeyboard(keyboardKeys) {
     keyboardContainer.append(button.generateButton());
   });
 }
-renderKeyboard(keyboardKeysEnRu)
+renderKeyboard(keyboardKeysEnRu);
 
 // Создаем функцию смены раскладки, путем установки класса hidden
 function switchLayout(layout) {
@@ -65,20 +65,20 @@ function switchLayout(layout) {
     // Переключение на английскую раскладку
     const enElements = document.querySelectorAll('.En');
     const ruElements = document.querySelectorAll('.Ru');
-    enElements.forEach(element => {
+    enElements.forEach((element) => {
       element.classList.remove('hidden');
     });
-    ruElements.forEach(element => {
+    ruElements.forEach((element) => {
       element.classList.add('hidden');
     });
   } else if (layout === 'ru') {
     // Переключение на русскую раскладку
     const enElements = document.querySelectorAll('.En');
     const ruElements = document.querySelectorAll('.Ru');
-    enElements.forEach(element => {
+    enElements.forEach((element) => {
       element.classList.add('hidden');
     });
-    ruElements.forEach(element => {
+    ruElements.forEach((element) => {
       element.classList.remove('hidden');
     });
   }
@@ -102,7 +102,7 @@ ruOption.value = 'ru';
 select.appendChild(ruOption);
 
 // Проверяем, сохранена ли раскладка в localStorage
-const savedLayout = localStorage.getItem('keyboardLayout');
+let savedLayout = localStorage.getItem('keyboardLayout');
 
 // Если раскладка сохранена, то выбираем ее при загрузке страницы
 if (savedLayout === 'en') {
@@ -128,22 +128,33 @@ function handleLayoutChange(event) {
   }
 }
 
-// Добавляем прослушиватели
 document.querySelectorAll('.keyboard-key').forEach((key) => {
-  key.addEventListener('click', handleKeyPressDown);
-})
+  key.addEventListener('mousedown', handleKeyPressDown);
+});
+document.querySelectorAll('.keyboard-key').forEach((key) => {
+  key.addEventListener('mouseup', handleKeyPressUp);
+});
 window.addEventListener('keydown', handleKeyPressDown);
 window.addEventListener('keyup', handleKeyPressUp);
 
-// Добавляем функцию на нажатие клавиши на физической клавиатуре
-function handleKeyPressDown (event) {
+// Контралёр нажатия Shift
+let shiftPressed = false;
 
-  if (event.key !== 'CapsLock'){
-    const keyClass = event.code;
-    const keyElement = document.querySelector('.' + keyClass);
-    keyElement.classList.add("active");
+function handleKeyPressDown(event) {
+  textarea.focus();
+  let eventCode = event.code;
+  if (event.target.classList[1]) {
+    eventCode = event.target.classList[1];
+  }
+  if (event.target.classList[1] === 'key') {
+    const parent = event.target.parentNode.parentNode;
+    eventCode = parent.classList[1];
+  }
 
-  } else  {
+  if (eventCode !== 'CapsLock') {
+    const keyElement = document.querySelector(`.${eventCode}`);
+    keyElement.classList.add('active');
+  } else {
     const keyElement = document.querySelector('.CapsLock');
     if (keyElement.classList.contains('active')) {
       keyElement.classList.remove('active');
@@ -154,7 +165,7 @@ function handleKeyPressDown (event) {
 
   // "Смена раскладки клавиатуры: Ctrl + Alt"
   if (event.ctrlKey && event.altKey) {
-    const savedLayout = localStorage.getItem('keyboardLayout');
+    savedLayout = localStorage.getItem('keyboardLayout');
     let newLayout;
     if (savedLayout === 'en') {
       newLayout = 'ru';
@@ -173,31 +184,93 @@ function handleKeyPressDown (event) {
   }
 
   // Shift
-
+  if ((eventCode === 'ShiftLeft' || eventCode === 'ShiftRight') && !shiftPressed) {
+    const downAndCapsLockElements = [...document.querySelectorAll('.down-key'), ...document.querySelectorAll('.shift-key')];
+    downAndCapsLockElements.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+    shiftPressed = true;
+  }
 
   // CapsLock
-  if (event.code === "CapsLock") {
-
-
+  if (eventCode === 'CapsLock') {
     const downAndShiftElements = [...document.querySelectorAll('.down-key'), ...document.querySelectorAll('.shift-key')];
-
-    downAndShiftElements.forEach(element => {
+    downAndShiftElements.forEach((element) => {
       element.classList.toggle('hidden');
     });
   }
 
+  const pressedKeyboardKey = document.querySelector(`.keyboard-key.${eventCode}`);
+  const pressedLangDiv = pressedKeyboardKey.querySelector('div:not(.hidden)');
+  const pressedSpanChar = pressedLangDiv.querySelector('span:not(.hidden)').textContent;
 
+  event.preventDefault();
+  switch (eventCode) {
+    case 'Tab':
+      textarea.setRangeText('    ', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'Space':
+      textarea.setRangeText(' ', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'Enter':
+      textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'Backspace':
+      textarea.setRangeText('', textarea.selectionStart - 1, textarea.selectionEnd, 'end');
+      break;
+    case 'Delete':
+      textarea.setRangeText('', textarea.selectionStart, textarea.selectionEnd + 1, 'end');
+      break;
+    case 'ArrowUp':
+      textarea.setRangeText('↑', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'ArrowDown':
+      textarea.setRangeText('↓', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'ArrowLeft':
+      textarea.setRangeText('←', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'ArrowRight':
+      textarea.setRangeText('→', textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+    case 'CapsLock':
+    case 'ShiftLeft':
+    case 'ShiftRight':
+    case 'ControlLeft':
+    case 'ControlRight':
+    case 'AltLeft':
+    case 'AltRight':
+    case 'MetaLeft':
+    case 'MetaRight':
+      break;
+    default:
+      textarea.setRangeText(pressedSpanChar, textarea.selectionStart, textarea.selectionEnd, 'end');
+      break;
+  }
 }
 
-// Добавляем функцию на полнятие клавиши на физической клавиатуре
-function handleKeyPressUp (event) {
-
-  if (event.key !== 'CapsLock') {
-    const keyClass = event.code;
-    const keyElement = document.querySelector('.' + keyClass);
-    keyElement.classList.remove("active");
+function handleKeyPressUp(event) {
+  let eventCode = event.code;
+  if (event.target.classList[1]) {
+    eventCode = event.target.classList[1];
+  }
+  if (event.target.classList[1] === 'key') {
+    const parent = event.target.parentNode.parentNode;
+    eventCode = parent.classList[1];
+  }
+  if (eventCode !== 'CapsLock') {
+    const keyElement = document.querySelector(`.${eventCode}`);
+    keyElement.classList.remove('active');
   }
 
   // Shift
+  if (eventCode === 'ShiftLeft' || eventCode === 'ShiftRight') {
+    shiftPressed = false;
+    const downAndCapsLockElements = [...document.querySelectorAll('.down-key'),
+      ...document.querySelectorAll('.shift-key')];
 
+    downAndCapsLockElements.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
 }

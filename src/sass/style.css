@@ -58,6 +58,9 @@ body {
   align-self: center;
   cursor: pointer;
 }
+.toggle-lang:hover {
+  background-color: #3c4870;
+}
 
 .keyboard-container {
   display: grid;

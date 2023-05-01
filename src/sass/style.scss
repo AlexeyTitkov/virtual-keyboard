@@ -57,6 +57,9 @@ body {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   align-self: center;
   cursor: pointer;
+  &:hover {
+    background-color: #3c4870;
+  }
 }
 
 .keyboard-container {
@@ -82,12 +85,14 @@ body {
   border-style: outset;
   border-color: #575757;
   border-image: initial;
+
   &:hover {
     background-color: #5567b0;
   }
-  &:active{
+
+  &:active {
     background-color: #5c7bf3;
-    transform: translateY(1px) translateX(1px) ;
+    transform: translateY(1px) translateX(1px);
   }
 }
 
@@ -95,8 +100,7 @@ body {
 .ShiftRight,
 .CapsLock,
 .Enter,
-.Backspace
-{
+.Backspace {
   grid-column: span 2;
 }
 
@@ -132,5 +136,5 @@ body {
 
 .active {
   background-color: #5c7bf3;
-  transform: translateY(1px) translateX(1px) ;
+  transform: translateY(1px) translateX(1px);
 }
