@@ -26,12 +26,12 @@ export class Button {
     if (this.shiftKeyEn) {
       (templateEn += `<span class='shift-key hidden'>${this.shiftKeyEn}</span>`);
     }
-    if (this.shiftKeyEn) {
-      (templateEn += `<span class='caps-key hidden'>${this.shiftKeyEn}</span>`);
-    }
-    if (this.shiftKeyEn) {
-      (templateEn += `<span class='caps-shift-key hidden'>${this.keyEn}</span>`);
-    }
+    // if (this.shiftKeyEn) {
+    //     (templateEn += `<span class='caps-key hidden'>${this.shiftKeyEn}</span>`);
+    // }
+    // if (this.shiftKeyEn) {
+    //     (templateEn += `<span class='caps-shift-key hidden'>${this.keyEn}</span>`);
+    // }
 
     if (this.keyRu) {
       (templateRu += `<span class='down-key'>${this.keyRu}</span>`);
@@ -39,12 +39,12 @@ export class Button {
     if (this.shiftKeyRu) {
       (templateRu += `<span class='shift-key hidden'>${this.shiftKeyRu}</span>`);
     }
-    if (this.shiftKeyRu) {
-      (templateRu += `<span class='caps-key hidden'>${this.shiftKeyRu}</span>`);
-    }
-    if (this.shiftKeyRu) {
-      (templateRu += `<span class='caps-shift-key hidden'>${this.keyRu}</span>`);
-    }
+    // if (this.shiftKeyRu) {
+    //     (templateRu += `<span class='caps-key hidden'>${this.shiftKeyRu}</span>`);
+    // }
+    // if (this.shiftKeyRu) {
+    //     (templateRu += `<span class='caps-shift-key hidden'>${this.keyRu}</span>`);
+    // }
 
     spanEn.innerHTML = templateEn
     spanRu.innerHTML = templateRu

@@ -127,3 +127,77 @@ function handleLayoutChange(event) {
     switchLayout('ru');
   }
 }
+
+// Добавляем прослушиватели
+document.querySelectorAll('.keyboard-key').forEach((key) => {
+  key.addEventListener('click', handleKeyPressDown);
+})
+window.addEventListener('keydown', handleKeyPressDown);
+window.addEventListener('keyup', handleKeyPressUp);
+
+// Добавляем функцию на нажатие клавиши на физической клавиатуре
+function handleKeyPressDown (event) {
+
+  if (event.key !== 'CapsLock'){
+    const keyClass = event.code;
+    const keyElement = document.querySelector('.' + keyClass);
+    keyElement.classList.add("active");
+
+  } else  {
+    const keyElement = document.querySelector('.CapsLock');
+    if (keyElement.classList.contains('active')) {
+      keyElement.classList.remove('active');
+    } else {
+      keyElement.classList.add('active');
+    }
+  }
+
+  // "Смена раскладки клавиатуры: Ctrl + Alt"
+  if (event.ctrlKey && event.altKey) {
+    const savedLayout = localStorage.getItem('keyboardLayout');
+    let newLayout;
+    if (savedLayout === 'en') {
+      newLayout = 'ru';
+    } else if (savedLayout === 'ru') {
+      newLayout = 'en';
+    } else {
+      newLayout = 'en';
+    }
+    localStorage.setItem('keyboardLayout', newLayout);
+    select.value = newLayout;
+    if (newLayout === 'en') {
+      switchLayout('en');
+    } else if (newLayout === 'ru') {
+      switchLayout('ru');
+    }
+  }
+
+  // Shift
+
+
+  // CapsLock
+  if (event.code === "CapsLock") {
+
+
+    const downAndShiftElements = [...document.querySelectorAll('.down-key'), ...document.querySelectorAll('.shift-key')];
+
+    downAndShiftElements.forEach(element => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+
+}
+
+// Добавляем функцию на полнятие клавиши на физической клавиатуре
+function handleKeyPressUp (event) {
+
+  if (event.key !== 'CapsLock') {
+    const keyClass = event.code;
+    const keyElement = document.querySelector('.' + keyClass);
+    keyElement.classList.remove("active");
+  }
+
+  // Shift
+
+}
