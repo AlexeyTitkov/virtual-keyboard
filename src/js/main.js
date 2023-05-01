@@ -216,8 +216,10 @@ function handleKeyPressDown(event) {
       textarea.setRangeText('\n', textarea.selectionStart, textarea.selectionEnd, 'end');
       break;
     case 'Backspace':
-      textarea.setRangeText('', textarea.selectionStart - 1, textarea.selectionEnd, 'end');
-      break;
+      if (textarea.textLength) {
+        textarea.setRangeText('', textarea.selectionStart - 1, textarea.selectionEnd, 'end');
+        break;
+      }
     case 'Delete':
       textarea.setRangeText('', textarea.selectionStart, textarea.selectionEnd + 1, 'end');
       break;
