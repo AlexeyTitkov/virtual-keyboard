@@ -1,6 +1,6 @@
-import { keyboardKeysEn } from './_keyboard-keys-en.js';
-import { keyboardKeysRu } from './_keyboard-keys-ru.js';
-import { Button } from './_button.js';
+import { keyboardKeysEn } from 'https://alexeytitkov.github.io/virtual-keyboard/src/js/_keyboard-keys-en.js';
+import { keyboardKeysRu } from 'https://alexeytitkov.github.io/virtual-keyboard/src/js/_keyboard-keys-ru.js';
+import { Button } from 'https://alexeytitkov.github.io/virtual-keyboard/src/js/_button.js';
 
 // Создаем функцию соединения значений двух раскладок
 const keyboardKeysEnRu = keyboardKeysEn.map((enKey, index) => {
