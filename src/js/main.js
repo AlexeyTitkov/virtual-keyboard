@@ -1,6 +1,6 @@
-import { keyboardKeysEn } from './_keyboard-keys-en.js';
-import { keyboardKeysRu } from './_keyboard-keys-ru.js';
-import { Button } from './_button.js';
+import { keyboardKeysEn } from './keyboard-keys-en.js';
+import { keyboardKeysRu } from './keyboard-keys-ru.js';
+import { Button } from './button.js';
 
 // Создаем функцию соединения значений двух раскладок
 const keyboardKeysEnRu = keyboardKeysEn.map((enKey, index) => {
@@ -133,6 +133,9 @@ document.querySelectorAll('.keyboard-key').forEach((key) => {
 });
 document.querySelectorAll('.keyboard-key').forEach((key) => {
   key.addEventListener('mouseup', handleKeyPressUp);
+});
+document.querySelectorAll('.keyboard-key').forEach((key) => {
+  key.addEventListener('mouseleave', handleKeyPressUp);
 });
 window.addEventListener('keydown', handleKeyPressDown);
 window.addEventListener('keyup', handleKeyPressUp);
